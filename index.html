@@ -64,7 +64,7 @@
 
     <script>
         let tg = window.Telegram.WebApp;
-        tg.expand(); // Mini App ni to'liq oyna qilish
+        tg.expand();
 
         function submitTest() {
             let selected = document.querySelector('input[name="q1"]:checked');
@@ -73,7 +73,6 @@
                 return;
             }
             let resultData = { answer: selected.value };
-            // Natijani botga yuborish
             tg.sendData(JSON.stringify(resultData));
             tg.close();
         }
