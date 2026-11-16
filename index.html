@@ -3,78 +3,229 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Biologiya Testlar</title>
+    <title>BioOson - Biologiya Platformasi</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
+        :root {
+            --primary-color: #27ae60;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-color: #333;
+        }
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            color: #333;
-            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
             margin: 0;
+            padding-bottom: 70px;
         }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
+        /* Header */
+        header {
             background: #fff;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            padding: 10px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
-        h2 { color: #2c3e50; text-align: center; }
-        .question { margin-bottom: 20px; font-weight: bold; }
-        .options label {
-            display: block;
-            background: #eef2f7;
+        .logo {
+            font-weight: bold;
+            font-size: 20px;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .coins {
+            background: #fff9db;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+            color: #f39c12;
+            border: 1px solid #ffe066;
+        }
+
+        .container {
+            padding: 15px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h3 {
+            margin-bottom: 10px;
+            color: #2c3e50;
+            font-size: 18px;
+        }
+
+        /* Horizontal Scroll Sections */
+        .scroll-section {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            scrollbar-width: none;
+        }
+        .scroll-section::-webkit-scrollbar { display: none; }
+
+        /* Cards */
+        .card {
+            min-width: 130px;
+            background: var(--card-bg);
+            border-radius: 12px;
             padding: 10px;
-            margin: 8px 0;
-            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            text-align: center;
+            flex-shrink: 0;
             cursor: pointer;
             transition: 0.2s;
+            border: 1px solid #eee;
         }
-        .options label:hover { background: #d0e1fd; }
-        button {
-            background: #27ae60;
-            color: white;
-            border: none;
-            padding: 12px 20px;
+        .card:hover { transform: translateY(-3px); }
+        .card img {
             width: 100%;
+            height: 90px;
+            object-fit: cover;
             border-radius: 8px;
-            font-size: 16px;
-            cursor: pointer;
-            margin-top: 15px;
+            background: #eef2f7;
         }
-        button:hover { background: #219653; }
+        .card-title {
+            font-weight: bold;
+            font-size: 13px;
+            margin-top: 8px;
+            color: #2c3e50;
+        }
+        .card-sub {
+            font-size: 11px;
+            color: #7f8c8d;
+            margin-top: 4px;
+        }
+
+        /* Bottom Navigation Bar */
+        .nav-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #fff;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.08);
+            border-top: 1px solid #eee;
+        }
+        .nav-item {
+            text-align: center;
+            font-size: 11px;
+            color: #7f8c8d;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .nav-item.active {
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        .nav-item div { font-size: 18px; margin-bottom: 2px; }
     </style>
 </head>
 <body>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">🌿 BioOson</div>
+        <div class="coins">🪙 1,011 +</div>
+    </header>
+
     <div class="container">
-        <h2>Biologiya Milliy Sertifikat Testi</h2>
-        <div id="test-box">
-            <div class="question">1. Oqsillarning monomeri nima?</div>
-            <div class="options">
-                <label><input type="radio" name="q1" value="a"> A) Aminokislota</label>
-                <label><input type="radio" name="q1" value="b"> B) Glyukoza</label>
-                <label><input type="radio" name="q1" value="c"> C) Nukleotid</label>
-                <label><input type="radio" name="q1" value="d"> D) Glitserin</label>
+        <!-- 1. Sinflar bo'yicha darsliklar -->
+        <h3>Biologiya darsliklari</h3>
+        <div class="scroll-section">
+            <div class="card" onclick="openCategory('5-sinf')">
+                <img src="https://via.placeholder.com/130x90/27ae60/ffffff?text=5-Sinf" alt="5-sinf">
+                <div class="card-title">5-sinf Biologiya</div>
+                <div class="card-sub">18 ta mavzu</div>
             </div>
-            <button onclick="submitTest()">Natijani yuborish</button>
+            <div class="card" onclick="openCategory('6-sinf')">
+                <img src="https://via.placeholder.com/130x90/2980b9/ffffff?text=6-Sinf" alt="6-sinf">
+                <div class="card-title">6-sinf Botanika</div>
+                <div class="card-sub">24 ta mavzu</div>
+            </div>
+            <div class="card" onclick="openCategory('7-sinf')">
+                <img src="https://via.placeholder.com/130x90/8e44ad/ffffff?text=7-Sinf" alt="7-sinf">
+                <div class="card-title">7-sinf Zoologiya</div>
+                <div class="card-sub">30 ta mavzu</div>
+            </div>
+            <div class="card" onclick="openCategory('8-sinf')">
+                <img src="https://via.placeholder.com/130x90/d35400/ffffff?text=8-Sinf" alt="8-sinf">
+                <div class="card-title">8-sinf Odam</div>
+                <div class="card-sub">35 ta mavzu</div>
+            </div>
+            <div class="card" onclick="openCategory('9-sinf')">
+                <img src="https://via.placeholder.com/130x90/c0392b/ffffff?text=9-Sinf" alt="9-sinf">
+                <div class="card-title">9-sinf Genetika</div>
+                <div class="card-sub">28 ta mavzu</div>
+            </div>
         </div>
+
+        <!-- 2. Biologiya to'plamlari -->
+        <h3 style="margin-top: 25px;">Biologiya to'plamlari</h3>
+        <div class="scroll-section">
+            <div class="card" onclick="openTest('Organizmylarning xilma-xilligi')">
+                <img src="https://via.placeholder.com/130x90/16a085/ffffff?text=1-Kitob" alt="Kitob">
+                <div class="card-title">1-KITOB: Organizm...</div>
+                <div class="card-sub">143 ta test</div>
+            </div>
+            <div class="card" onclick="openTest('Sitologiya')">
+                <img src="https://via.placeholder.com/130x90/27ae60/ffffff?text=Sitologiya" alt="Kitob">
+                <div class="card-title">Sitologiya</div>
+                <div class="card-sub">5 ta mavzu</div>
+            </div>
+            <div class="card" onclick="openTest('Genetika')">
+                <img src="https://via.placeholder.com/130x90/2980b9/ffffff?text=Genetika" alt="Kitob">
+                <div class="card-title">Genetika</div>
+                <div class="card-sub">140 ta test</div>
+            </div>
+            <div class="card" onclick="openTest('Evolutsiya')">
+                <img src="https://via.popup.placeholder.com/130x90/8e44ad/ffffff?text=Evolutsiya" alt="Kitob">
+                <div class="card-title">Evolutsiya</div>
+                <div class="card-sub">66 ta test</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Menu -->
+    <div class="nav-bar">
+        <a class="nav-item active">
+            <div>🏠</div>Asosiy
+        </a>
+        <a class="nav-item">
+            <div>⚔️</div>Duel
+        </a>
+        <a class="nav-item">
+            <div>🏆</div>Markaz
+        </a>
+        <a class="nav-item">
+            <div>💬</div>Muloqot
+        </a>
+        <a class="nav-item">
+            <div>👤</div>Profil
+        </a>
     </div>
 
     <script>
         let tg = window.Telegram.WebApp;
         tg.expand();
 
-        function submitTest() {
-            let selected = document.querySelector('input[name="q1"]:checked');
-            if (!selected) {
-                alert("Iltimos, javobni tanlang!");
-                return;
-            }
-            let resultData = { answer: selected.value };
-            tg.sendData(JSON.stringify(resultData));
-            tg.close();
+        function openCategory(categoryName) {
+            alert(categoryName + " darsliklari va mavzulari ochilmoqda!");
+        }
+
+        function openTest(testName) {
+            // Bu yerda tanlangan to'plam bo'yicha test oynasini ochish mumkin
+            alert(testName + " testlari boshlanmoqda!");
         }
     </script>
 </body>
