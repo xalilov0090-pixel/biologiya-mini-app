@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biologiya Testlar</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            padding: 20px;
+            margin: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        h2 { color: #2c3e50; text-align: center; }
+        .question { margin-bottom: 20px; font-weight: bold; }
+        .options label {
+            display: block;
+            background: #eef2f7;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .options label:hover { background: #d0e1fd; }
+        button {
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            width: 100%;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        button:hover { background: #219653; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Biologiya Milliy Sertifikat Testi</h2>
+        <div id="test-box">
+            <div class="question">1. Oqsillarning monomeri nima?</div>
+            <div class="options">
+                <label><input type="radio" name="q1" value="a"> A) Aminokislota</label>
+                <label><input type="radio" name="q1" value="b"> B) Glyukoza</label>
+                <label><input type="radio" name="q1" value="c"> C) Nukleotid</label>
+                <label><input type="radio" name="q1" value="d"> D) Glitserin</label>
+            </div>
+            <button onclick="submitTest()">Natijani yuborish</button>
+        </div>
+    </div>
+
+    <script>
+        let tg = window.Telegram.WebApp;
+        tg.expand(); // Mini App ni to'liq oyna qilish
+
+        function submitTest() {
+            let selected = document.querySelector('input[name="q1"]:checked');
+            if (!selected) {
+                alert("Iltimos, javobni tanlang!");
+                return;
+            }
+            let resultData = { answer: selected.value };
+            // Natijani botga yuborish
+            tg.sendData(JSON.stringify(resultData));
+            tg.close();
+        }
+    </script>
+</body>
+</html>
